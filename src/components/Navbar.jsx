@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Bell, Search, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import ThemeToggle from "./themeToggle";
 
 const Navbar = () => {
   const isMobile = useIsMobile();
@@ -20,7 +21,6 @@ const Navbar = () => {
             />
           </div>
 
-          {/* Hide text on mobile */}
           <h1 className="text-white text-lg md:text-xl font-semibold hidden sm:block">
             Edu Home
           </h1>
@@ -52,12 +52,15 @@ const Navbar = () => {
             </button>
           )}
 
+          {/* ✅ Dark Mode Toggle */}
+          <ThemeToggle />
+
           {/* Notification */}
           <button className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-[#2c313a] flex items-center justify-center text-white hover:bg-[#3a404b] duration-200">
             <Bell size={18} className="md:size-5" />
           </button>
 
-          {/* Flag hide on mobile */}
+          {/* Hide flag on mobile */}
           {!isMobile && (
             <img
               src="https://flagcdn.com/w40/kh.png"
@@ -75,9 +78,9 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Search Bar Dropdown */}
+      {/* Mobile Search Dropdown */}
       {isMobile && openSearch && (
-        <div className="mt-3 w-full bg-[#1f232a] rounded-md px-4 py-3 shadow-lg">
+        <div className="mt-3 w-full bg-[#1f232a] rounded-2xl px-4 py-3 shadow-lg">
           <div className="flex items-center gap-2 bg-[#2c313a] px-4 py-3 rounded-full">
             <Search size={18} className="text-gray-400" />
             <input
