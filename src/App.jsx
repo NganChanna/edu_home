@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button"
 import Navbar from "./components/Navbar"
+import AppLayout from "./apps/AppLayout"
 
 function App() {
   return (
-    <>
-      <Navbar/>
-    </>
+    <AppLayout>
+      
+    </AppLayout>
   )
 }
 
