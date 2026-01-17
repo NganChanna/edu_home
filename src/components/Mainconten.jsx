@@ -57,14 +57,14 @@ export default function MainContent() {
       author: "Tang",
       views: "1.9K",
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
-      gradient: "bg-gradient-to-br from-blue-500 to-purple-600"
+      gradient: "bg-gray"
     },
     {
       title: "IT & Database",
       author: "Tang",
       views: "1.9K",
       image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gradient-to-br from-cyan-400 to-blue-500"
+      gradient: "bg-gray"
     }
     ,
     {
@@ -72,7 +72,7 @@ export default function MainContent() {
       author: "Tang",
       views: "1.9K",
       image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gradient-to-br from-cyan-400 to-blue-500"
+      gradient: "bg-gray"
     }
     ,
     {
@@ -80,7 +80,7 @@ export default function MainContent() {
       author: "Tang",
       views: "1.9K",
       image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gradient-to-br from-cyan-400 to-blue-500"
+      gradient: "bg-gray"
     }
   ];
 
