@@ -14,15 +14,16 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         {/* Toggle button for the sidebar */}
         <SidebarTrigger className="hover:bg-accent p-2 rounded-md" />
-        
+
         <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <img
-              src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+              src="./scr/images/logo.png"
               alt="logo"
-              className="w-6 brightness-0 invert" 
+              className="w-6 h-6 object-contain"
             />
           </div>
+         
           <h1 className="text-foreground text-lg font-bold tracking-tight hidden sm:block">
             Edu Home
           </h1>
@@ -46,7 +47,10 @@ const Navbar = () => {
       {/* Right Section */}
       <div className="flex items-center gap-2">
         {isMobile && (
-          <button onClick={() => setOpenSearch(!openSearch)} className="p-2 rounded-full hover:bg-accent">
+          <button
+            onClick={() => setOpenSearch(!openSearch)}
+            className="p-2 rounded-full hover:bg-accent"
+          >
             {openSearch ? <X size={20} /> : <Search size={20} />}
           </button>
         )}
@@ -72,7 +76,12 @@ const Navbar = () => {
         <div className="absolute top-[70px] left-0 w-full bg-background border-b p-4 z-[60] animate-in slide-in-from-top-2">
           <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-lg">
             <Search size={18} className="text-muted-foreground" />
-            <input autoFocus type="text" placeholder="Search..." className="w-full bg-transparent outline-none text-sm" />
+            <input
+              autoFocus
+              type="text"
+              placeholder="Search..."
+              className="w-full bg-transparent outline-none text-sm"
+            />
           </div>
         </div>
       )}
