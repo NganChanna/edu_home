@@ -43,7 +43,7 @@ const SubjectCard = ({ icon: Icon, title, count, color }) => (
   </div>
 );
 
-export default function MainContent() {
+const  Home = () => {
   const trendingDocs = [
     {
       title: "Math & QCM",
@@ -135,3 +135,5 @@ export default function MainContent() {
     </div>
   );
 }
+
+export default Home;
