@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import MainContent from "@/components/Mainconten";
+
 
 export default function AppLayout({ children }) {
   return (
@@ -20,7 +20,7 @@ export default function AppLayout({ children }) {
           <SidebarInset className="flex flex-col flex-1 overflow-y-auto bg-slate-50/30 dark:bg-zinc-950/50">
             <main className="p-4 md:p-8">
               <div className="mx-auto max-w-7xl w-full">
-                {children || <MainContent />}
+                {children }
               </div>
             </main>
           </SidebarInset>

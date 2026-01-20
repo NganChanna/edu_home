@@ -10,13 +10,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 
 const items = [
-  { title: "Home", url: "#", icon: Home },
-  { title: "My Library", url: "#", icon: Inbox },
-  { title: "Bacll", url: "#", icon: University},
-  { title: "Contact Us", url: "#", icon: Contact },
-  { title: "Settings", url: "#", icon: Settings },
+  { title: "Home", url: "/", icon: Home },
+  { title: "My Library", url: "/my-library", icon: Inbox },
+  { title: "Bacll", url: "/bacii", icon: University},
+  { title: "Contact Us", url: "/contact-us", icon: Contact },
+  { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -38,10 +39,10 @@ export function AppSidebar() {
                     tooltip={item.title} // Shows title on hover when collapsed
                     className="hover:bg-primary/10 hover:text-primary transition-all duration-200 py-6"
                   >
-                    <a href={item.url}>
+                    <Link to={item.url}>
                       <item.icon className="size-5" />
                       <span className="font-medium">{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

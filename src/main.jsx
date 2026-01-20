@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from './components/theme-provider.jsx'
 import './index.css'
 import App from './App.jsx'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <ThemeProvider defaultTheme="dark" storageKey="app-theme">
-    <App />
-  </ThemeProvider>
+    <Router>
+      <ThemeProvider defaultTheme="dark" storageKey="app-theme">
+        <App />
+      </ThemeProvider>
+    </Router>
   </StrictMode>,
 )
