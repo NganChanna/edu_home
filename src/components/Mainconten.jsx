@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Download, Share2, BookOpen, Code, Database, Calculator, Globe, Cpu, Star } from 'lucide-react';
-
 const DocumentCard = ({ title, author, views, image, gradient }) => {
   const [isStarred, setIsStarred] = useState(false);
 
