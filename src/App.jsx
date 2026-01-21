@@ -1,6 +1,6 @@
 import AppLayout from "./apps/AppLayout"
-import MainContent from "./components/Mainconten"
-
+import { Routes, Route } from "react-router-dom"
+import{ Bacii, Home, ContactUs, MyLibrary, Settings} from "./pages"
 function App() {
   return (
     <AppLayout>

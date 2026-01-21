@@ -1,95 +1,175 @@
 import React, { useState } from 'react';
-import { Download, Share2, BookOpen, Code, Database, Calculator, Globe, Cpu, Star } from 'lucide-react';
-const DocumentCard = ({ title, author, views, image, gradient }) => {
-  const [isStarred, setIsStarred] = useState(false);
+import { Download, Share2, BookOpen, Code, Database, Calculator, Globe, Cpu, Star, Clock, TrendingUp, MoreVertical, Trash2, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const DocumentCard = ({ title, subject, lastOpened, progress, rating, image, gradient, isFavorite }) => {
+  const [isStarred, setIsStarred] = useState(isFavorite);
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <div className="relative group rounded-2xl overflow-hidden bg-slate-700 dark:bg-slate-800 hover:scale-105 transition-transform duration-300 cursor-pointer">
-      <div className={`h-50 ${gradient} flex items-center justify-center p-6`}>
+    <div className="relative group rounded-2xl overflow-hidden bg-slate-700/50 dark:bg-slate-800/50 backdrop-blur-md border border-slate-600/50 hover:scale-105 hover:border-slate-500/70 transition-all duration-300 cursor-pointer">
+      <div className={`h-48 ${gradient} flex items-center justify-center p-6 relative`}>
         <img src={image} alt={title} className="w-full h-full object-cover rounded-lg" />
-      </div>
-      <div className="p-4 space-y-2">
-        <h3 className="text-white font-semibold text-lg">{title}</h3>
-        <p className="text-slate-400 text-sm">By {author}</p>
-        <div className="flex items-center justify-between pt-2">
-          <span className="text-slate-400 text-sm">{views} views</span>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => setIsStarred(!isStarred)}
-              className="p-2 bg-slate-600 hover:bg-slate-500 rounded-lg transition-colors"
-            >
-              <Star 
-                className={`w-4 h-4 transition-colors ${
-                  isStarred ? 'fill-yellow-500 text-yellow-500' : 'text-white'
-                }`} 
-              />
-            </button>
-            <button className="p-2 bg-slate-600 hover:bg-slate-500 rounded-lg transition-colors">
-              <Share2 className="w-4 h-4 text-white" />
-            </button>
-          </div>
+        
+        {/* Progress bar overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-900/50">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all"
+            style={{ width: `${progress}%` }}
+          />
         </div>
       </div>
+      
+      <div className="p-4 space-y-2 bg-slate-800/80 backdrop-blur-sm">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-white font-semibold text-lg line-clamp-2 flex-1">{title}</h3>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowMenu(!showMenu);
+            }}
+            className="p-1.5 hover:bg-slate-600/50 rounded-lg transition-colors"
+          >
+            <MoreVertical className="w-4 h-4 text-slate-400" />
+          </button>
+        </div>
+        
+        <p className="text-slate-400 text-sm">{subject}</p>
+        
+        <div className="flex items-center justify-between pt-2">
+          <div className="flex items-center gap-3 text-slate-400 text-sm">
+            <div className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5" />
+              <span>{lastOpened}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>{progress}%</span>
+            </div>
+          </div>
+          
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsStarred(!isStarred);
+            }}
+            className="p-2 bg-slate-600/50 hover:bg-slate-500/70 backdrop-blur-sm rounded-lg transition-colors border border-slate-500/30"
+          >
+            <Star 
+              className={`w-4 h-4 transition-colors ${
+                isStarred ? 'fill-yellow-500 text-yellow-500' : 'text-white'
+              }`} 
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* Dropdown Menu */}
+      {showMenu && (
+        <div className="absolute top-14 right-4 z-10 bg-slate-800/95 backdrop-blur-md border border-slate-600/50 rounded-lg shadow-xl min-w-[160px] overflow-hidden">
+          <button className="w-full px-4 py-2.5 text-left text-sm text-white hover:bg-slate-700/70 transition-colors flex items-center gap-2">
+            <Download className="w-4 h-4" />
+            Download
+          </button>
+          <button className="w-full px-4 py-2.5 text-left text-sm text-white hover:bg-slate-700/70 transition-colors flex items-center gap-2">
+            <Share2 className="w-4 h-4" />
+            Share
+          </button>
+          <button className="w-full px-4 py-2.5 text-left text-sm text-white hover:bg-slate-700/70 transition-colors flex items-center gap-2">
+            <FolderOpen className="w-4 h-4" />
+            Move to Folder
+          </button>
+          <div className="border-t border-slate-600/50"></div>
+          <button className="w-full px-4 py-2.5 text-left text-sm text-red-400 hover:bg-slate-700/70 transition-colors flex items-center gap-2">
+            <Trash2 className="w-4 h-4" />
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-const SubjectCard = ({ icon: Icon, title, count, color }) => (
-  <div className={`${color} rounded-2xl p-6 hover:scale-105 transition-transform duration-300 cursor-pointer`}>
-    <Icon className="w-12 h-12 text-white mb-4" />
-    <h3 className="text-white font-semibold text-lg mb-1">{title}</h3>
-    <p className="text-white/80 text-sm">{count} courses</p>
-  </div>
-);
+const SubjectCard = ({ icon: Icon, title, count, color, id }) => {
+  const navigate = useNavigate();
 
-const  Home = () => {
+  const handleClick = () => {
+    navigate(`/subject/${id}`);
+  };
+
+  return (
+    <div 
+      onClick={handleClick}
+      className={`${color} rounded-2xl p-6 hover:scale-105 transition-transform duration-300 cursor-pointer`}
+    >
+      <Icon className="w-12 h-12 text-white mb-4" />
+      <h3 className="text-white font-semibold text-lg mb-1">{title}</h3>
+      <p className="text-white/80 text-sm">{count} courses</p>
+    </div>
+  );
+};
+
+export default function MainContent() {
   const trendingDocs = [
     {
-      title: "Math & QCM",
-      author: "Tang",
-      views: "1.9K",
-      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop",
-      gradient: "bg-gray"
+      title: "Data Structures & Algorithms",
+      subject: "Computer Science",
+      lastOpened: "3 days ago",
+      progress: 0,
+      rating: 4.9,
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      gradient: "bg-gray",
+      isFavorite: false
     },
     {
-      title: "Vibs-coder",
-      author: "Tang",
-      views: "1.9K",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop",
-      gradient: "bg-gray"
+      title: "Data Structures & Algorithms",
+      subject: "Computer Science",
+      lastOpened: "3 days ago",
+      progress: 0,
+      rating: 4.9,
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      gradient: "bg-gray",
+      isFavorite: false
     },
     {
-      title: "IT & Database",
-      author: "Tang",
-      views: "1.9K",
-      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gray"
-    }
-    ,
-    {
-      title: "IT & Database",
-      author: "Tang",
-      views: "1.9K",
-      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gray"
-    }
-    ,
-    {
-      title: "IT & Database",
-      author: "Tang",
-      views: "1.9K",
-      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop",
-      gradient: "bg-gray"
+      title: "Data Structures & Algorithms",
+      subject: "Computer Science",
+      lastOpened: "3 days ago",
+      progress: 0,
+      rating: 4.9,
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      gradient: "bg-gray",
+      isFavorite: false
+    },
+     {
+      title: "Data Structures & Algorithms",
+      subject: "Computer Science",
+      lastOpened: "3 days ago",
+      progress: 0,
+      rating: 4.9,
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      gradient: "bg-gray",
+      isFavorite: false
+    },
+     {
+      title: "Data Structures & Algorithms",
+      subject: "Computer Science",
+      lastOpened: "3 days ago",
+      progress: 0,
+      rating: 4.9,
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+      gradient: "bg-gray",
+      isFavorite: false
     }
   ];
 
   const subjects = [
-    { icon: Calculator, title: "Mathematics", count: 24, color: "bg-gradient-to-br from-purple-500 to-pink-500" },
-    { icon: Code, title: "Programming", count: 18, color: "bg-gradient-to-br from-blue-500 to-cyan-500" },
-    { icon: Database, title: "Database", count: 15, color: "bg-gradient-to-br from-green-500 to-teal-500" },
-    { icon: Globe, title: "Web Development", count: 21, color: "bg-gradient-to-br from-orange-500 to-red-500" },
-    { icon: Cpu, title: "Computer Science", count: 19, color: "bg-gradient-to-br from-indigo-500 to-purple-500" },
-    { icon: BookOpen, title: "Literature", count: 12, color: "bg-gradient-to-br from-pink-500 to-rose-500" }
+    { id: 'mathematics', icon: Calculator, title: "Mathematics", count: 24, color: "bg-gradient-to-br from-purple-500 to-pink-500" },
+    { id: 'programming', icon: Code, title: "Programming", count: 18, color: "bg-gradient-to-br from-blue-500 to-cyan-500" },
+    { id: 'database', icon: Database, title: "Database", count: 15, color: "bg-gradient-to-br from-green-500 to-teal-500" },
+    { id: 'web-development', icon: Globe, title: "Web Development", count: 21, color: "bg-gradient-to-br from-orange-500 to-red-500" },
+    { id: 'computer-science', icon: Cpu, title: "Computer Science", count: 19, color: "bg-gradient-to-br from-indigo-500 to-purple-500" },
+    { id: 'literature', icon: BookOpen, title: "Literature", count: 12, color: "bg-gradient-to-br from-pink-500 to-rose-500" }
   ];
 
   return (
@@ -112,7 +192,7 @@ const  Home = () => {
         </div>
         <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
           {trendingDocs.map((doc, index) => (
-            <div key={index} className="flex-none w-73">
+            <div key={index} className="flex-none w-75">
               <DocumentCard {...doc} />
             </div>
           ))}
@@ -134,5 +214,3 @@ const  Home = () => {
     </div>
   );
 }
-
-export default Home;
