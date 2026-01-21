@@ -75,10 +75,7 @@ const DocumentCard = ({ title, subject, lastOpened, progress, rating, image, gra
             <Share2 className="w-4 h-4" />
             Share
           </button>
-          <button className="w-full px-4 py-2.5 text-left text-sm text-white hover:bg-slate-700/70 transition-colors flex items-center gap-2">
-            <FolderOpen className="w-4 h-4" />
-            Move to Folder
-          </button>
+          
           <div className="border-t border-slate-600/50"></div>
           <button className="w-full px-4 py-2.5 text-left text-sm text-red-400 hover:bg-slate-700/70 transition-colors flex items-center gap-2">
             <Trash2 className="w-4 h-4" />
