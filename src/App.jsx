@@ -1,5 +1,4 @@
 import AppLayout from "./apps/AppLayout"
-<<<<<<< HEAD
 import { Routes, Route, Navigate, Outlet } from "react-router-dom"
 import { Login, Register, NotFound, Bacii, Home, ContactUs, MyLibrary, Settings } from "./pages"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -12,13 +11,11 @@ function Logout() {
 function RegisterAndLogout() {
   localStorage.clear();
   return <Register />
-}
+} 
 
-=======
-import { Routes, Route } from "react-router-dom"
-import{ Bacii, Home, ContactUs, MyLibrary, Settings} from "./pages"
->>>>>>> origin/main
 function App() {
+
+
   return (
     <Routes>
       {/* Public Routes */}

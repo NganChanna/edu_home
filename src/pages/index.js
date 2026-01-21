@@ -7,9 +7,6 @@ import NotFound from "./NotFound";
 import Register from "./Register";
 import Login from "./Login";
 
-<<<<<<< HEAD
-export { Login, Register, NotFound, Bacii, Home, ContactUs, MyLibrary, Settings}
-=======
 
-export { Bacii, Home, ContactUs, MyLibrary, Settings}
->>>>>>> origin/main
+export { Login, Register, NotFound, Bacii, Home, ContactUs, MyLibrary, Settings}
+
