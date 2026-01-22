@@ -40,7 +40,7 @@ const Login = () => {
     try {
       const res = await api.post('/api/v1/auth/login', values);
       localStorage.setItem(ACCESS_TOKEN, res.data.data.token);
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       setRootError(err.response?.data?.error || 'Login failed. Please check your credentials.');
     } finally {
