@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Loader2, Mail, Lock, ChevronRight } from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Loader2, Mail, Lock, ChevronRight } from "lucide-react";
 
-import api from '../api/api';
-import { ACCESS_TOKEN } from '../constants/constants';
+import api from "../api/api";
+import { ACCESS_TOKEN } from "../constants/constants";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -17,7 +17,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -26,7 +26,7 @@ const formSchema = z.object({
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [rootError, setRootError] = useState('');
+  const [rootError, setRootError] = useState("");
   const navigate = useNavigate();
 
   const form = useForm({
@@ -36,13 +36,16 @@ const Login = () => {
 
   const onSubmit = async (values) => {
     setLoading(true);
-    setRootError('');
+    setRootError("");
     try {
-      const res = await api.post('/api/v1/auth/login', values);
+      const res = await api.post("/api/v1/auth/login", values);
       localStorage.setItem(ACCESS_TOKEN, res.data.data.token);
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      setRootError(err.response?.data?.error || 'Login failed. Please check your credentials.');
+      setRootError(
+        err.response?.data?.error ||
+          "Login failed. Please check your credentials.",
+      );
     } finally {
       setLoading(false);
     }
@@ -58,7 +61,6 @@ const Login = () => {
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="p-8 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50">
-          
           {/* Header Section */}
           <div className="flex flex-col space-y-2 text-center mb-8">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
@@ -77,7 +79,6 @@ const Login = () => {
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-              
               <FormField
                 control={form.control}
                 name="email"
@@ -87,11 +88,11 @@ const Login = () => {
                     <FormControl>
                       <div className="relative">
                         <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                        <Input 
+                        <Input
                           id="email"
-                          placeholder="name@example.com" 
-                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
-                          {...field} 
+                          placeholder="name@example.com"
+                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500"
+                          {...field}
                         />
                       </div>
                     </FormControl>
@@ -107,19 +108,23 @@ const Login = () => {
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel className="text-slate-700">Password</FormLabel>
-                      <Link to="/forgot-password" size="sm" className="text-xs font-medium text-indigo-600 hover:text-indigo-500">
+                      <Link
+                        to="/forgot-password"
+                        size="sm"
+                        className="text-xs font-medium text-indigo-600 hover:text-indigo-500"
+                      >
                         Forgot password?
                       </Link>
                     </div>
                     <FormControl>
                       <div className="relative">
                         <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                        <Input 
+                        <Input
                           id="password"
-                          type="password" 
-                          placeholder="••••••••" 
-                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
-                          {...field} 
+                          type="password"
+                          placeholder="••••••••"
+                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500"
+                          {...field}
                         />
                       </div>
                     </FormControl>
@@ -128,9 +133,9 @@ const Login = () => {
                 )}
               />
 
-              <Button 
-                type="submit" 
-                className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-200" 
+              <Button
+                type="submit"
+                className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-200"
                 disabled={loading}
               >
                 {loading ? (
@@ -150,13 +155,16 @@ const Login = () => {
           <div className="mt-8 text-center">
             <p className="text-sm text-slate-500">
               Don't have an account?{" "}
-              <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors">
+              <Link
+                to="/register"
+                className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
                 Create an account
               </Link>
             </p>
           </div>
         </div>
-        
+
         {/* Footer info */}
         <p className="mt-8 text-center text-xs text-slate-400 uppercase tracking-widest font-medium">
           &copy; 2026 Edu-Home Platform
