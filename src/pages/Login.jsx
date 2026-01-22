@@ -40,7 +40,7 @@ const Login = () => {
     try {
       const res = await api.post('/api/v1/auth/login', values);
       localStorage.setItem(ACCESS_TOKEN, res.data.data.token);
-      navigate('/');
+      navigate('/login');
     } catch (err) {
       setRootError(err.response?.data?.error || 'Login failed. Please check your credentials.');
     } finally {
@@ -88,6 +88,7 @@ const Login = () => {
                       <div className="relative">
                         <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                         <Input 
+                          id="email"
                           placeholder="name@example.com" 
                           className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
                           {...field} 
@@ -114,6 +115,7 @@ const Login = () => {
                       <div className="relative">
                         <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                         <Input 
+                          id="password"
                           type="password" 
                           placeholder="••••••••" 
                           className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
