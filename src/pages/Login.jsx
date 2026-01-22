@@ -3,11 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Loader2, Mail, Lock, ChevronRight } from 'lucide-react';
-
+import { Loader2, Mail, Lock, ChevronRight, GraduationCap } from 'lucide-react';
 import api from '../api/api';
 import { ACCESS_TOKEN } from '../constants/constants';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import GoogleLoginBtn from '../components/googleLoginBtn';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -49,114 +48,121 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-slate-50">
-      {/* Decorative background element */}
+    <div className="relative flex items-center justify-center min-h-screen bg-slate-50 px-4">
+      {/* 1. Background Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-50/50 blur-3xl" />
-        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-indigo-50/50 blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 w-full max-w-md px-4">
-        <div className="p-8 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50">
-          
-          {/* Header Section */}
-          <div className="flex flex-col space-y-2 text-center mb-8">
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
-              Welcome back
-            </h1>
-            <p className="text-sm text-slate-500">
-              Enter your credentials to access your account
-            </p>
+      {/* 2. Content Container */}
+      <div className="relative z-10 w-full max-w-[420px]">
+        
+        {/* Brand/Logo Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 mb-4 shadow-lg shadow-indigo-200">
+             <GraduationCap className="text-white w-7 h-7" />
           </div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome to Edu-Home</h1>
+          <p className="text-slate-500 mt-1">Please sign in to your account</p>
+        </div>
 
+        <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/60 p-8">
+          {/* Error Message Container */}
           {rootError && (
-            <div className="p-3 mb-6 text-sm font-medium text-red-600 bg-red-50 border border-red-100 rounded-lg animate-in fade-in zoom-in duration-200">
+            <div className="mb-6 p-3 rounded-lg bg-red-50 border border-red-100 text-red-600 text-sm font-medium animate-in fade-in slide-in-from-top-1">
               {rootError}
             </div>
           )}
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-              
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-slate-700">Email</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                        <Input 
-                          placeholder="name@example.com" 
-                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
-                          {...field} 
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700 font-medium">Email</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                            <Input 
+                              placeholder="name@example.com" 
+                          
+                              className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm" 
+                              {...field} 
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex items-center justify-between">
-                      <FormLabel className="text-slate-700">Password</FormLabel>
-                      <Link to="/forgot-password" size="sm" className="text-xs font-medium text-indigo-600 hover:text-indigo-500">
-                        Forgot password?
-                      </Link>
-                    </div>
-                    <FormControl>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                        <Input 
-                          type="password" 
-                          placeholder="••••••••" 
-                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
-                          {...field} 
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                          <FormLabel className="text-slate-700 font-medium">Password</FormLabel>
+                          <Link to="/forgot-password" size="sm" className="text-xs font-semibold text-indigo-600 hover:text-indigo-500">
+                            Forgot?
+                          </Link>
+                        </div>
+                        <FormControl>
+                          <div className="relative">
+                            <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                            <Input 
+                              type="password" 
+                              placeholder="••••••••" 
+                              
+                              className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm" 
+                              {...field} 
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                <Button 
+                  type="submit" 
+                  className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-indigo-100 transition-all active:scale-[0.98]" 
+                  disabled={loading}
+                >
+                  {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign In"}
+                </Button>
+        
+                </form>
+              </Form>
 
-              <Button 
-                type="submit" 
-                className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-200" 
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Authenticating...
-                  </>
-                ) : (
-                  <span className="flex items-center justify-center">
-                    Sign In <ChevronRight className="ml-2 h-4 w-4" />
-                  </span>
-                )}
-              </Button>
-            </form>
-          </Form>
+         
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-slate-500">
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-100"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-slate-400 font-medium">Or continue with</span>
+            </div>
+          </div>
+
+          {/* Secondary Action: Social Login */}
+          <div className="space-y-4">
+            <GoogleLoginBtn />
+            
+            <p className="text-center text-sm text-slate-500 mt-6">
               Don't have an account?{" "}
-              <Link to="/register" className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors">
-                Create an account
+              <Link to="/register" className="font-bold text-indigo-600 hover:text-indigo-700 transition-colors">
+                Sign up
               </Link>
             </p>
           </div>
         </div>
-        
-        {/* Footer info */}
-        <p className="mt-8 text-center text-xs text-slate-400 uppercase tracking-widest font-medium">
+
+        {/* Footer */}
+        <p className="mt-8 text-center text-xs text-slate-400 font-medium tracking-widest uppercase">
           &copy; 2026 Edu-Home Platform
         </p>
       </div>
