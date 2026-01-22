@@ -91,6 +91,28 @@ const Login = () => {
                 placeholder="name@example.com"
                 className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
                 {...field}
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate-700">Email</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                        <Input 
+                          id="email"
+                          placeholder="name@example.com" 
+                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
+                          {...field} 
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
           </FormControl>
@@ -123,6 +145,32 @@ const Login = () => {
                 placeholder="••••••••"
                 className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
                 {...field}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel className="text-slate-700">Password</FormLabel>
+                      <Link to="/forgot-password" size="sm" className="text-xs font-medium text-indigo-600 hover:text-indigo-500">
+                        Forgot password?
+                      </Link>
+                    </div>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                        <Input 
+                          id="password"
+                          type="password" 
+                          placeholder="••••••••" 
+                          className="pl-10 bg-slate-50/50 focus-visible:ring-indigo-500" 
+                          {...field} 
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
           </FormControl>
