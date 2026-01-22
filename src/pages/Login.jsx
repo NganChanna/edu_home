@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Loader2, Mail, Lock, ChevronRight, GraduationCap } from 'lucide-react';
+import { Loader2, Mail, Lock, GraduationCap } from 'lucide-react';
 import api from '../api/api';
 import { ACCESS_TOKEN } from '../constants/constants';
 import { Button } from '@/components/ui/button';
@@ -135,7 +135,71 @@ const Login = () => {
                 </Button>
         
                 </form>
-              </Form>
+              </Form><Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-slate-700 font-medium">Email</FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="name@example.com"
+                    className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center justify-between">
+                <FormLabel className="text-slate-700 font-medium">Password</FormLabel>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-500"
+                >
+                  Forgot?
+                </Link>
+              </div>
+
+              <FormControl>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    className="pl-10 h-11 bg-white border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+    <Button
+      type="submit"
+      className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-indigo-100 transition-all active:scale-[0.98]"
+      disabled={loading}
+    >
+      {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign In"}
+    </Button>
+  </form>
+</Form>
+
 
          
 
