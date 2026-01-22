@@ -56,7 +56,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton className="text-destructive hover:bg-destructive/10 hover:text-destructive transition-colors">
               <LogOut className="size-5" />
-              <span>Logout</span>
+              <Link to="/logout">Logout</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
