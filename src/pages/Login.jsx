@@ -52,11 +52,11 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-slate-50">
-      {/* Decorative background element */}
+    <div className="relative flex items-center justify-center min-h-screen bg-slate-50 px-4">
+      {/* 1. Background Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-50/50 blur-3xl" />
-        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-indigo-50/50 blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 w-full max-w-md px-4">
@@ -71,8 +71,10 @@ const Login = () => {
             </p>
           </div>
 
+        <div className="bg-white border border-slate-200 rounded-3xl shadow-xl shadow-slate-200/60 p-8">
+          {/* Error Message Container */}
           {rootError && (
-            <div className="p-3 mb-6 text-sm font-medium text-red-600 bg-red-50 border border-red-100 rounded-lg animate-in fade-in zoom-in duration-200">
+            <div className="mb-6 p-3 rounded-lg bg-red-50 border border-red-100 text-red-600 text-sm font-medium animate-in fade-in slide-in-from-top-1">
               {rootError}
             </div>
           )}
@@ -152,8 +154,23 @@ const Login = () => {
             </form>
           </Form>
 
-          <div className="mt-8 text-center">
-            <p className="text-sm text-slate-500">
+
+         
+
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-100"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-slate-400 font-medium">Or continue with</span>
+            </div>
+          </div>
+
+          {/* Secondary Action: Social Login */}
+          <div className="space-y-4">
+            <GoogleLoginBtn />
+            
+            <p className="text-center text-sm text-slate-500 mt-6">
               Don't have an account?{" "}
               <Link
                 to="/register"
